@@ -1,14 +1,56 @@
 import { Badge } from "@/components/ui/badge";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import {
+  Atom, FileCode, Code2, MonitorSmartphone,
+  Server, Plug, ShieldCheck, Workflow,
+  Cloud, Container,
+  Globe, ShoppingCart, Store,
+  CreditCard, Receipt,
+  Bot, Video,
+  Accessibility, Keyboard, Heart,
+} from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 
-const categories = [
-  { label: "Frontend", skills: ["React.js", "JavaScript / TypeScript", "HTML5 / CSS3", "Responsive UI Development"] },
-  { label: "Backend", skills: ["Node.js", "REST APIs", "Authentication / Authorization", "Server-side Integrations"] },
-  { label: "Cloud & DevOps", skills: ["AWS Deployments", "Hosting & Build Pipelines"] },
-  { label: "CMS", skills: ["WordPress", "Shopify", "Magento"] },
-  { label: "Billing", skills: ["Recurly Integration", "Pricing Models"] },
-  { label: "AI", skills: ["Agentic Workflows", "AI Avatars (Real-time)"] },
-  { label: "Accessibility", skills: ["WCAG Best Practices", "Keyboard Navigation", "Inclusive UI Development"] },
+interface Skill {
+  name: string;
+  icon: LucideIcon;
+}
+
+const categories: { label: string; skills: Skill[] }[] = [
+  { label: "Frontend", skills: [
+    { name: "React.js", icon: Atom },
+    { name: "JavaScript / TypeScript", icon: FileCode },
+    { name: "HTML5 / CSS3", icon: Code2 },
+    { name: "Responsive UI", icon: MonitorSmartphone },
+  ]},
+  { label: "Backend", skills: [
+    { name: "Node.js", icon: Server },
+    { name: "REST APIs", icon: Plug },
+    { name: "Auth / Authorization", icon: ShieldCheck },
+    { name: "Server Integrations", icon: Workflow },
+  ]},
+  { label: "Cloud & DevOps", skills: [
+    { name: "AWS Deployments", icon: Cloud },
+    { name: "Build Pipelines", icon: Container },
+  ]},
+  { label: "CMS", skills: [
+    { name: "WordPress", icon: Globe },
+    { name: "Shopify", icon: ShoppingCart },
+    { name: "Magento", icon: Store },
+  ]},
+  { label: "Billing", skills: [
+    { name: "Recurly Integration", icon: CreditCard },
+    { name: "Pricing Models", icon: Receipt },
+  ]},
+  { label: "AI", skills: [
+    { name: "Agentic Workflows", icon: Bot },
+    { name: "AI Avatars (Real-time)", icon: Video },
+  ]},
+  { label: "Accessibility", skills: [
+    { name: "WCAG Best Practices", icon: Accessibility },
+    { name: "Keyboard Navigation", icon: Keyboard },
+    { name: "Inclusive UI", icon: Heart },
+  ]},
 ];
 
 export default function Skills() {
@@ -32,7 +74,10 @@ export default function Skills() {
               <h3 className="text-sm font-mono font-semibold text-primary uppercase tracking-widest mb-3">{cat.label}</h3>
               <div className="flex flex-wrap gap-2">
                 {cat.skills.map((s) => (
-                  <Badge key={s} variant="secondary" className="text-xs">{s}</Badge>
+                  <Badge key={s.name} variant="secondary" className="text-xs gap-1.5 py-1 px-2.5">
+                    <s.icon className="w-3.5 h-3.5" />
+                    {s.name}
+                  </Badge>
                 ))}
               </div>
             </div>
