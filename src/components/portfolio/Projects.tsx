@@ -3,15 +3,26 @@ import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const projects = [
   {
-    name: "Shopping AI",
-    type: "MVP | Chrome Extension + Web App",
+    name: "Hotel Management System",
+    type: "Full System | Web + Mobile",
     contributions: [
-      "Developed a Chrome extension and web application",
-      "Built single-checkout experience across multiple websites",
-      "Improved user flow by removing repeated payment entry",
+      "Led a team of 6 engineers",
+      "Built web and mobile applications in 6 weeks",
+      "Delivered role-based workflows for staff and admins",
     ],
-    outcome: "Reduced checkout friction and improved user convenience significantly.",
-    tech: ["React", "Chrome Extension API", "Node.js"],
+    outcome: "Delivered a full system under tight deadline — one of my biggest career achievements.",
+    tech: ["React", "React Native", "Node.js", "PostgreSQL"],
+  },
+  {
+    name: "B2C Subscription Platform",
+    type: "B2C Product | Subscription + Billing",
+    contributions: [
+      "Integrated B2B product into existing B2C pricing model",
+      "Worked with two billing accounts in Recurly",
+      "Delivered on a PHP-based server — learned PHP quickly",
+    ],
+    outcome: "Successfully delivered complex billing integration and improved product monetization.",
+    tech: ["PHP", "Recurly", "REST APIs", "React"],
   },
   {
     name: "Educational Platform",
@@ -34,27 +45,16 @@ const projects = [
     tech: ["SSO", "OAuth", "React", "Node.js"],
   },
   {
-    name: "B2C Subscription Platform",
-    type: "B2C Product | Subscription + Billing",
+    name: "E-Commerce AI",
+    type: "MVP | Chrome Extension + Web App",
     contributions: [
-      "Integrated B2B product into existing B2C pricing model",
-      "Worked with two billing accounts in Recurly",
-      "Delivered on a PHP-based server — learned PHP quickly",
+      "Developed a Chrome extension and web application",
+      "Built single-checkout experience across multiple websites",
+      "Improved user flow by removing repeated payment entry",
     ],
-    outcome: "Successfully delivered complex billing integration and improved product monetization.",
-    tech: ["PHP", "Recurly", "REST APIs", "React"],
-  },
-  {
-    name: "Hospitality Management System",
-    type: "Full System | Web + Mobile",
-    contributions: [
-      "Led a team of 6 engineers",
-      "Built web and mobile applications in 6 weeks",
-      "Delivered role-based workflows for staff and admins",
-    ],
-    outcome: "Delivered a full system under tight deadline — one of my biggest career achievements.",
-    tech: ["React", "React Native", "Node.js", "PostgreSQL"],
-  },
+    outcome: "Reduced checkout friction and improved user convenience significantly.",
+    tech: ["React", "Chrome Extension API", "Node.js"],
+  }
 ];
 
 export default function Projects() {

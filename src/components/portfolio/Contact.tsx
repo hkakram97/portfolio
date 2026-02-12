@@ -2,9 +2,9 @@ import { Mail, Linkedin, Github } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const contactLinks = [
-  { icon: Mail, label: "Email", href: "mailto:hello@example.com", text: "hello@example.com" },
-  { icon: Linkedin, label: "LinkedIn", href: "https://linkedin.com/in/hamzaakram", text: "linkedin.com/in/hamzaakram" },
-  { icon: Github, label: "GitHub", href: "https://github.com/hamzaakram", text: "github.com/hamzaakram" },
+  { icon: Mail, label: "Email", href: "mailto:hkakram97@gmail.com", text: "hkakram97@gmail.com" },
+  { icon: Linkedin, label: "LinkedIn", href: "https://www.linkedin.com/in/muhammad-hamza-akram-akram/", text: "linkedin.com/in/muhammad-hamza-akram-akram" },
+  { icon: Github, label: "GitHub", href: "https://github.com/hkakram97", text: "github.com/hkakram97" },
 ];
 
 export default function Contact() {

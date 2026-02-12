@@ -28,7 +28,7 @@ export default function Navbar() {
     >
       <nav className="container mx-auto flex items-center justify-between px-6 py-4">
         <a href="#" className="text-xl font-bold tracking-tight text-foreground">
-          H<span className="text-primary">.</span>A
+          Hamza Akram
         </a>
 
         {/* Desktop */}
