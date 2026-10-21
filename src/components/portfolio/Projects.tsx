@@ -1,108 +1,61 @@
-import { Badge } from "@/components/ui/badge";
-import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import { ArrowRight } from "lucide-react";
+import { useLanguage } from "@/i18n/context";
+import CaseStudyCard from "./CaseStudyCard";
+import Reveal from "./Reveal";
+import SectionHeader from "./SectionHeader";
+import SmartLink from "./SmartLink";
 
-const projects = [
-  {
-    name: "Hotel Management System",
-    type: "Full System | Web + Mobile",
-    contributions: [
-      "Led a team of 6 engineers",
-      "Built web and mobile applications in 6 weeks",
-      "Delivered role-based workflows for staff and admins",
-    ],
-    outcome: "Delivered a full system under tight deadline — one of my biggest career achievements.",
-    tech: ["React", "React Native", "Node.js", "PostgreSQL"],
-  },
-  {
-    name: "B2C Subscription Platform",
-    type: "B2C Product | Subscription + Billing",
-    contributions: [
-      "Integrated B2B product into existing B2C pricing model",
-      "Worked with two billing accounts in Recurly",
-      "Delivered on a PHP-based server — learned PHP quickly",
-    ],
-    outcome: "Successfully delivered complex billing integration and improved product monetization.",
-    tech: ["PHP", "Recurly", "REST APIs", "React"],
-  },
-  {
-    name: "Educational Platform",
-    type: "Web Platform | Education",
-    contributions: [
-      "Implemented full accessibility (a11y) across the platform",
-      "Ensured inclusive, usable experience for all learners",
-    ],
-    outcome: "Platform became fully accessible and significantly more user-friendly.",
-    tech: ["React", "WCAG", "Semantic HTML", "ARIA"],
-  },
-  {
-    name: "B2B Security Platform",
-    type: "B2B Product",
-    contributions: [
-      "Integrated Single Sign-On (SSO) feature",
-      "Simplified login flow and improved UX",
-    ],
-    outcome: "Faster onboarding and smoother authentication for business customers.",
-    tech: ["SSO", "OAuth", "React", "Node.js"],
-  },
-  {
-    name: "E-Commerce AI",
-    type: "MVP | Chrome Extension + Web App",
-    contributions: [
-      "Developed a Chrome extension and web application",
-      "Built single-checkout experience across multiple websites",
-      "Improved user flow by removing repeated payment entry",
-    ],
-    outcome: "Reduced checkout friction and improved user convenience significantly.",
-    tech: ["React", "Chrome Extension API", "Node.js"],
-  }
-];
+const HOME_FEATURED = 4;
 
 export default function Projects() {
-  const { ref, isVisible } = useScrollAnimation();
+  const { t } = useLanguage();
+  const w = t.work;
+  const total = w.caseStudies.length + w.archive.length;
+  const teaser = w.archive.slice(0, 5);
 
   return (
-    <section id="projects" className="py-24 lg:py-32">
-      <div ref={ref} className="container mx-auto px-6">
-        <div className={`text-center mb-16 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
-            Featured <span className="text-primary">Projects</span>
-          </h2>
-          <p className="text-muted-foreground text-lg max-w-xl mx-auto">
-            Real-world products I've contributed to — from MVPs to enterprise systems.
-          </p>
-        </div>
+    <section id="work" className="py-24 lg:py-32">
+      <div className="container mx-auto px-6">
+        <SectionHeader eyebrow={w.eyebrow} title={w.title} highlight={w.highlight} description={w.description} />
+
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {projects.map((p, i) => (
-            <div
-              key={p.name}
-              className={`rounded-xl border border-border bg-card p-8 transition-all duration-500 hover:border-primary/40 hover:shadow-lg hover:shadow-primary/5 ${
-                i === projects.length - 1 ? "lg:col-span-2 lg:max-w-[calc(50%-0.75rem)]" : ""
-              } ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
-              style={{ transitionDelay: isVisible ? `${i * 100}ms` : "0ms" }}
-            >
-              <div className="flex items-start justify-between gap-4 mb-4">
-                <h3 className="text-xl font-bold text-foreground">{p.name}</h3>
-                <Badge variant="secondary" className="shrink-0 text-xs font-mono">{p.type}</Badge>
-              </div>
-              <ul className="space-y-1.5 mb-4">
-                {p.contributions.map((c) => (
-                  <li key={c} className="text-sm text-muted-foreground flex items-start gap-2">
-                    <span className="text-primary mt-1.5 h-1.5 w-1.5 rounded-full bg-primary shrink-0" />
-                    {c}
-                  </li>
-                ))}
-              </ul>
-              <p className="text-sm font-medium text-foreground mb-4">
-                <span className="text-primary">Outcome:</span> {p.outcome}
-              </p>
-              <div className="flex flex-wrap gap-2">
-                {p.tech.map((t) => (
-                  <Badge key={t} variant="outline" className="text-xs">{t}</Badge>
-                ))}
-              </div>
-            </div>
+          {w.caseStudies.slice(0, HOME_FEATURED).map((p, i) => (
+            <Reveal key={p.title} delay={(i % 2) * 0.08}>
+              <CaseStudyCard project={p} />
+            </Reveal>
           ))}
         </div>
+
+        <Reveal className="mt-8">
+          <SmartLink
+            to="/projects"
+            className="group relative block overflow-hidden rounded-2xl bg-gradient-to-r from-primary via-accent to-primary bg-[length:200%_100%] p-[2px] shadow-lg shadow-primary/10 transition-all duration-500 hover:bg-right hover:shadow-xl hover:shadow-primary/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+          >
+            <div className="relative flex flex-col gap-6 rounded-[calc(1rem-2px)] bg-card px-6 py-7 sm:px-8 md:flex-row md:items-center md:justify-between">
+              <div className="flex items-center gap-5 sm:gap-6">
+                <span className="shrink-0 text-5xl sm:text-6xl font-black tracking-tight text-gradient">{total}</span>
+                <div>
+                  <p className="text-lg sm:text-xl font-bold text-foreground">{w.viewAllTitle}</p>
+                  <p className="mt-1 text-sm text-muted-foreground leading-relaxed max-w-xl">{w.viewAllDesc(total)}</p>
+                  <div className="mt-3 hidden sm:flex flex-wrap gap-1.5">
+                    {teaser.map((a) => (
+                      <span key={a.title} className="rounded-full bg-secondary px-2.5 py-0.5 text-xs text-secondary-foreground">
+                        {a.title}
+                      </span>
+                    ))}
+                    <span className="rounded-full bg-secondary px-2.5 py-0.5 text-xs text-muted-foreground">
+                      +{total - HOME_FEATURED - teaser.length}
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <span className="inline-flex shrink-0 items-center justify-center gap-2 rounded-md bg-primary px-6 h-11 text-base font-semibold text-primary-foreground transition-colors group-hover:bg-primary/90">
+                {w.viewAllCta}
+                <ArrowRight className="h-4 w-4 transition-transform rtl:rotate-180 group-hover:translate-x-1 rtl:group-hover:-translate-x-1" />
+              </span>
+            </div>
+          </SmartLink>
+        </Reveal>
       </div>
     </section>
   );

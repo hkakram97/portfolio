@@ -75,10 +75,40 @@
   html {
     scroll-behavior: smooth;
   }
+  section[id] {
+    scroll-margin-top: 4.5rem;
+  }
+  ::selection {
+    @apply bg-primary/20;
+  }
+
+  /* Arabic is cursive: letter-spacing breaks the joins, and tall ascenders need more line height. */
+  html[dir="rtl"] * {
+    letter-spacing: normal;
+  }
+  html[dir="rtl"] :is(h1, h2, h3) {
+    line-height: 1.4;
+  }
+  /* bg-clip-text crops anything outside the box; Arabic dots sit below it. */
+  html[dir="rtl"] .text-gradient {
+    padding-block: 0.15em;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }
 
 @layer utilities {
   .text-gradient {
     @apply bg-clip-text text-transparent bg-gradient-to-r from-primary via-accent to-pink-400;
+  }
+  .bg-grid {
+    background-image:
+      linear-gradient(hsl(var(--border)) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--border)) 1px, transparent 1px);
+    background-size: 48px 48px;
   }
 }

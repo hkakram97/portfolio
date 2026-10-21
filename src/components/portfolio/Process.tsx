@@ -1,40 +1,33 @@
-import { Search, PenTool, Hammer, Rocket } from "lucide-react";
-import { useScrollAnimation } from "@/hooks/useScrollAnimation";
-
-const steps = [
-  { icon: Search, title: "Understand", desc: "Requirements and business goals" },
-  { icon: PenTool, title: "Design", desc: "Scalable solution and architecture" },
-  { icon: Hammer, title: "Build", desc: "Integrate and test end-to-end" },
-  { icon: Rocket, title: "Deploy", desc: "Monitor and iterate" },
-];
+import { useLanguage } from "@/i18n/context";
+import Reveal from "./Reveal";
+import SectionHeader from "./SectionHeader";
 
 export default function Process() {
-  const { ref, isVisible } = useScrollAnimation();
+  const { t } = useLanguage();
+  const p = t.process;
 
   return (
-    <section className="py-24 lg:py-32">
-      <div ref={ref} className="container mx-auto px-6">
-        <div className={`text-center mb-16 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
-            Work <span className="text-primary">Process</span>
-          </h2>
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-4xl mx-auto">
-          {steps.map((s, i) => (
-            <div
-              key={s.title}
-              className={`text-center transition-all duration-500 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
-              style={{ transitionDelay: isVisible ? `${i * 120}ms` : "0ms" }}
-            >
-              <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary/10 text-primary mb-4">
-                <s.icon className="h-7 w-7" />
-              </div>
-              <div className="text-xs font-mono text-primary mb-1">0{i + 1}</div>
-              <h3 className="font-bold text-foreground mb-1">{s.title}</h3>
-              <p className="text-sm text-muted-foreground">{s.desc}</p>
-            </div>
+    <section className="py-24 lg:py-32 bg-secondary/30">
+      <div className="container mx-auto px-6">
+        <SectionHeader eyebrow={p.eyebrow} title={p.title} highlight={p.highlight} description={p.description} />
+        <ol className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          {p.steps.map((s, i) => (
+            <li key={s.title}>
+              <Reveal delay={i * 0.08} className="h-full">
+                <div className="relative h-full rounded-2xl border border-border bg-card p-7 overflow-hidden">
+                  <span className="absolute -top-3 -end-1 text-8xl font-black text-primary/[0.07] select-none" aria-hidden>
+                    {i + 1}
+                  </span>
+                  <p className="text-xs font-mono text-primary mb-3">
+                    {p.stepLabel} 0{i + 1}
+                  </p>
+                  <h3 className="text-lg font-bold text-foreground mb-2">{s.title}</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{s.desc}</p>
+                </div>
+              </Reveal>
+            </li>
           ))}
-        </div>
+        </ol>
       </div>
     </section>
   );
