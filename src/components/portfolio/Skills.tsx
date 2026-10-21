@@ -1,86 +1,37 @@
-import { Badge } from "@/components/ui/badge";
-import { useScrollAnimation } from "@/hooks/useScrollAnimation";
-import {
-  Atom, FileCode, Code2, MonitorSmartphone,
-  Server, Plug, ShieldCheck, Workflow,
-  Cloud, Container,
-  Globe, ShoppingCart, Store,
-  CreditCard, Receipt,
-  Bot, Video,
-  Accessibility, Keyboard, Heart,
-} from "lucide-react";
-import type { LucideIcon } from "lucide-react";
-
-interface Skill {
-  name: string;
-  icon: LucideIcon;
-}
-
-const categories: { label: string; skills: Skill[] }[] = [
-  { label: "Frontend", skills: [
-    { name: "React.js", icon: Atom },
-    { name: "JavaScript / TypeScript", icon: FileCode },
-    { name: "HTML5 / CSS3", icon: Code2 },
-    { name: "Responsive UI", icon: MonitorSmartphone },
-  ]},
-  { label: "Backend", skills: [
-    { name: "Node.js", icon: Server },
-    { name: "REST APIs", icon: Plug },
-    { name: "Auth / Authorization", icon: ShieldCheck },
-    { name: "Server Integrations", icon: Workflow },
-  ]},
-  { label: "Cloud & DevOps", skills: [
-    { name: "AWS Deployments", icon: Cloud },
-    { name: "Build Pipelines", icon: Container },
-  ]},
-  { label: "CMS", skills: [
-    { name: "WordPress", icon: Globe },
-    { name: "Shopify", icon: ShoppingCart },
-    { name: "Magento", icon: Store },
-  ]},
-  { label: "Billing", skills: [
-    { name: "Recurly Integration", icon: CreditCard },
-    { name: "Pricing Models", icon: Receipt },
-  ]},
-  { label: "AI", skills: [
-    { name: "Agentic Workflows", icon: Bot },
-    { name: "AI Avatars (Real-time)", icon: Video },
-  ]},
-  { label: "Accessibility", skills: [
-    { name: "WCAG Best Practices", icon: Accessibility },
-    { name: "Keyboard Navigation", icon: Keyboard },
-    { name: "Inclusive UI", icon: Heart },
-  ]},
-];
+import { useLanguage } from "@/i18n/context";
+import Reveal from "./Reveal";
+import SectionHeader from "./SectionHeader";
 
 export default function Skills() {
-  const { ref, isVisible } = useScrollAnimation();
+  const { t } = useLanguage();
+  const s = t.skills;
 
   return (
-    <section id="skills" className="py-24 lg:py-32 bg-secondary/30">
-      <div ref={ref} className="container mx-auto px-6">
-        <div className={`text-center mb-16 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
-            Skills & <span className="text-primary">Tech Stack</span>
-          </h2>
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 max-w-5xl mx-auto">
-          {categories.map((cat, i) => (
-            <div
-              key={cat.label}
-              className={`transition-all duration-500 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
-              style={{ transitionDelay: isVisible ? `${i * 80}ms` : "0ms" }}
-            >
-              <h3 className="text-sm font-mono font-semibold text-primary uppercase tracking-widest mb-3">{cat.label}</h3>
-              <div className="flex flex-wrap gap-2">
-                {cat.skills.map((s) => (
-                  <Badge key={s.name} variant="secondary" className="text-xs gap-1.5 py-1 px-2.5">
-                    <s.icon className="w-3.5 h-3.5" />
-                    {s.name}
-                  </Badge>
-                ))}
+    <section id="skills" className="py-24 lg:py-32">
+      <div className="container mx-auto px-6">
+        <SectionHeader eyebrow={s.eyebrow} title={s.title} highlight={s.highlight} description={s.description} />
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          {s.groups.map((g, i) => (
+            <Reveal key={g.label} delay={(i % 3) * 0.06} className={i === s.groups.length - 1 ? "md:col-span-2 lg:col-span-3" : ""}>
+              <div className="h-full rounded-2xl border border-border bg-card p-6">
+                <div className="flex items-center gap-3 mb-4">
+                  <span className="grid place-items-center h-9 w-9 rounded-lg bg-primary/10 text-primary">
+                    <g.icon className="h-[18px] w-[18px]" />
+                  </span>
+                  <h3 className="font-semibold text-foreground">{g.label}</h3>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {g.items.map((item) => (
+                    <span
+                      key={item}
+                      className="rounded-md border border-border bg-secondary/50 px-2.5 py-1 text-sm text-secondary-foreground transition-colors hover:border-primary/40 hover:text-primary"
+                    >
+                      {item}
+                    </span>
+                  ))}
+                </div>
               </div>
-            </div>
+            </Reveal>
           ))}
         </div>
       </div>
